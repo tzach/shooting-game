@@ -1,23 +1,33 @@
 radio.onReceivedNumber(function (receivedNumber) {
-    basic.showNumber(receivedNumber)
-    if (status == 2) {
-        basic.showIcon(IconNames.No)
-        basic.pause(100)
-        music.playTone(698, music.beat(BeatFraction.Whole))
+    if (receivedNumber == 1) {
+        if (status == 2) {
+            basic.showIcon(IconNames.No)
+            radio.sendNumber(2)
+            basic.pause(100)
+            music.playTone(698, music.beat(BeatFraction.Whole))
+        } else if (false) {
+        	
+        } else {
+            status = 3
+            diaplayStatus(status)
+            radio.sendNumber(3)
+            music.playTone(330, music.beat(BeatFraction.Breve))
+            basic.pause(10000)
+            init()
+        }
     } else {
-        status = 3
-        diaplayStatus(status)
-        music.playTone(330, music.beat(BeatFraction.Breve))
-        basic.pause(10000)
-        init()
+        if (receivedNumber == 3) {
+            basic.showIcon(IconNames.Yes)
+            basic.pause(500)
+        } else {
+            basic.showIcon(IconNames.No)
+        }
     }
 })
 input.onButtonPressed(Button.A, function () {
     if (status == 1) {
         radio.sendNumber(1)
         music.playTone(262, music.beat(BeatFraction.Whole))
-        basic.showIcon(IconNames.Cow)
-        basic.pause(1000)
     } else {
         basic.showIcon(IconNames.Sad)
         music.playTone(165, music.beat(BeatFraction.Whole))
